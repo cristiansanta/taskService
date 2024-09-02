@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  postgres_task:
+    image: postgres:13
+    container_name: postgres_task_db
+    environment:
+      POSTGRES_DB: taskdb
+      POSTGRES_USER: taskuser
+      POSTGRES_PASSWORD: taskpass
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_task_data:/var/lib/postgresql/data
+      - ./src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+  pgadmin_task:
+    image: dpage/pgadmin4
+    container_name: pgadmin_task
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@taskservice.com
+      PGADMIN_DEFAULT_PASSWORD: taskadmin
+    ports:
+      - "5051:80"
+    depends_on:
+      - postgres_task
+
+volumes:
+  postgres_task_data:
