@@ -1,27 +1,27 @@
 package com.mindhub.taskservice.mappers;
 
 import com.mindhub.taskservice.dtos.TaskDTO;
-import com.mindhub.taskservice.entities.Task;
+import com.mindhub.taskservice.entities.TaskEntity;
 
 public class TaskMapper {
 
-    public static TaskDTO toDTO(Task task) {
+    public static TaskDTO toDTO(TaskEntity task) {
         return new TaskDTO(
                 task.getId(),
                 task.getTitle(),
                 task.getDescription(),
                 task.getStatus(),
-                task.getUserId()
+                task.getUserEmail()
         );
     }
 
-    public static Task toEntity(TaskDTO dto) {
-        return new Task(
+    public static TaskEntity toEntity(TaskDTO dto) {
+        return new TaskEntity(
                 dto.getId(),
                 dto.getTitle(),
                 dto.getDescription(),
                 dto.getStatus(),
-                dto.getUserId()
+                dto.getUserEmail()
         );
     }
 }

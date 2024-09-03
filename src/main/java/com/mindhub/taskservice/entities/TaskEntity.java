@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table("tasks")
-public class Task {
+public class TaskEntity {
     @Id
     private Long id;
     private String title;
     private String description;
     private String status;
-    private Long userId;
+    private String userEmail;
 }

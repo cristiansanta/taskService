@@ -7,8 +7,7 @@ import reactor.core.publisher.Mono;
 public interface TaskService {
     Mono<TaskDTO> getTaskById(Long id);
     Flux<TaskDTO> getAllTasks();
-    Flux<TaskDTO> getTasksByUserId(Long userId);
-    Mono<TaskDTO> createTask(TaskDTO taskDTO);
+     Mono<TaskDTO> createTask(TaskDTO taskDTO);
     Mono<TaskDTO> updateTask(Long id, TaskDTO taskDTO);
     Mono<Void> deleteTask(Long id);
 }

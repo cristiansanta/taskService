@@ -1,7 +1,7 @@
 package com.mindhub.taskservice.services.impl;
 
 import com.mindhub.taskservice.dtos.TaskDTO;
-import com.mindhub.taskservice.entities.Task;
+import com.mindhub.taskservice.entities.TaskEntity;
 import com.mindhub.taskservice.handlers.NotFoundTask;
 import com.mindhub.taskservice.mappers.TaskMapper;
 import com.mindhub.taskservice.repositories.TaskRepository;
@@ -30,13 +30,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Flux<TaskDTO> getTasksByUserId(Long userId) {
-        return taskRepository.findByUserId(userId).map(TaskMapper::toDTO);
-    }
-
-    @Override
     public Mono<TaskDTO> createTask(TaskDTO taskDTO) {
-        Task task = TaskMapper.toEntity(taskDTO);
+        TaskEntity task = TaskMapper.toEntity(taskDTO);
         return taskRepository.save(task).map(TaskMapper::toDTO);
     }
 
@@ -47,7 +42,7 @@ public class TaskServiceImpl implements TaskService {
                     existingTask.setTitle(taskDTO.getTitle());
                     existingTask.setDescription(taskDTO.getDescription());
                     existingTask.setStatus(taskDTO.getStatus());
-                    existingTask.setUserId(taskDTO.getUserId());
+                    existingTask.setUserEmail(taskDTO.getUserEmail());
                     return taskRepository.save(existingTask);
                 })
                 .map(TaskMapper::toDTO)

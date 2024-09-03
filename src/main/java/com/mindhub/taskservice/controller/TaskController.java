@@ -25,11 +25,6 @@ public class TaskController {
         return taskService.getAllTasks();
     }
 
-    @GetMapping("/user/{userId}")
-    public Flux<TaskDTO> getTasksByUserId(@PathVariable Long userId) {
-        return taskService.getTasksByUserId(userId);
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<TaskDTO> createTask(@RequestBody TaskDTO taskDTO) {
