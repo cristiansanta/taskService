@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_DB: taskdb
       POSTGRES_USER: taskuser
-      POSTGRES_PASSWORD: taskpass
+      POSTGRES_PASSWORD: 9481
     ports:
       - "5433:5432"
     volumes:
