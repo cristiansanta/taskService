@@ -65,4 +65,9 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.findTasksByUserEmail(email)
                 .map(TaskMapper::toDTO);
     }
+    @Override
+    public Flux<TaskDTO> getTasksByUserEmail(String email) {
+        return taskRepository.findByUserEmail(email)
+                .map(TaskMapper::toDTO);
+    }
 }

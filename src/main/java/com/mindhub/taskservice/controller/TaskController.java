@@ -5,6 +5,7 @@ import com.mindhub.taskservice.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -47,5 +48,10 @@ public class TaskController {
     @GetMapping("/user/{email}")
     public Flux<TaskDTO> getTasksByUserEmail(@PathVariable String email){
         return taskService.retrieveTasksByUserEmail(email).delayElements(Duration.ofSeconds(1));
+    }
+    @GetMapping("/user")
+    public Flux<TaskDTO> getTasksByUser(ServerWebExchange exchange) {
+        String username = exchange.getRequest().getHeaders().getFirst("username");
+        return taskService.getTasksByUserEmail(username);
     }
 }
