@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+
 @RestController
 @RequestMapping("/api/tasks")
 public class TaskController {
@@ -22,7 +24,7 @@ public class TaskController {
 
     @GetMapping
     public Flux<TaskDTO> getAllTasks() {
-        return taskService.getAllTasks();
+        return taskService.getAllTasks().delayElements(Duration.ofSeconds(2));
     }
 
     @PostMapping
@@ -40,5 +42,10 @@ public class TaskController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Mono<Void> deleteTask(@PathVariable Long id) {
         return taskService.deleteTask(id);
+    }
+
+    @GetMapping("/user/{email}")
+    public Flux<TaskDTO> getTasksByUserEmail(@PathVariable String email){
+        return taskService.retrieveTasksByUserEmail(email).delayElements(Duration.ofSeconds(1));
     }
 }

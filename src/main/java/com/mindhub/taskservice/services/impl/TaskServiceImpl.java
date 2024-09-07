@@ -51,8 +51,18 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Mono<Void> deleteTask(Long id) {
-        return taskRepository.findById(id)
-                .flatMap(task -> taskRepository.delete(task))
-                .switchIfEmpty(Mono.error(new NotFoundTask("Task not found with id: " + id)));
+        return taskRepository.existsById(id)
+                .flatMap(exists -> {
+                    if (exists) {
+                        return taskRepository.deleteById(id);
+                    } else {
+                        return Mono.error(new NotFoundTask("Task not found with id: " + id));
+                    }
+                });
+    }
+    @Override
+    public Flux<TaskDTO> retrieveTasksByUserEmail(String email) {
+        return taskRepository.findTasksByUserEmail(email)
+                .map(TaskMapper::toDTO);
     }
 }

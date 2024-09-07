@@ -10,4 +10,5 @@ public interface TaskService {
      Mono<TaskDTO> createTask(TaskDTO taskDTO);
     Mono<TaskDTO> updateTask(Long id, TaskDTO taskDTO);
     Mono<Void> deleteTask(Long id);
+    Flux<TaskDTO> retrieveTasksByUserEmail(String email);
 }
